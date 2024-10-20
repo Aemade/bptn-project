@@ -20,6 +20,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JComboBox;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -110,7 +113,7 @@ public class ViewExpense extends JFrame {
 	                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/expensedb", "root", "Benu");
 	                Statement st = conn.createStatement();
 	                ResultSet rs = st.executeQuery("SELECT * FROM expense WHERE Date >= '" + sqlDate1 + "' AND Date <= '" + sqlDate2 + "'Order by Date asc");
-	                double total = 0; // Use double to hold the total amoun
+	                double total = 0; // Use double to hold the total amount
 	                
 	                while (rs.next()) {
 	                	double t = rs.getDouble("Amount"); // Use double to store the amount
@@ -158,6 +161,40 @@ public class ViewExpense extends JFrame {
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(10, 149, 468, 285);
 		panelsearchbydate.add(scrollPane_1);
+		
+		JButton ExportToCSV = new JButton("ExportToCSV");
+		ExportToCSV.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mouseClicked(MouseEvent e) {
+		        // Get the table model from table1
+		        DefaultTableModel model = (DefaultTableModel) table1.getModel();
+		        
+		        try (BufferedWriter writer = new BufferedWriter(new FileWriter("expenses.csv"))) {
+		            // Write the header
+		            writer.write("Date,Item,Amount");
+		            writer.newLine();
+
+		            // Write the data rows
+		            for (int i = 0; i < model.getRowCount(); i++) {
+		                String date = model.getValueAt(i, 0).toString();
+		                String item = model.getValueAt(i, 1).toString();
+		                String amount = model.getValueAt(i, 2).toString();
+
+		                String line = String.join(",", date, item, amount);
+		                writer.write(line);
+		                writer.newLine();
+		            }
+
+		            JOptionPane.showMessageDialog(null, "Data exported to expenses.csv successfully!");
+
+		        } catch (IOException e1) {
+		            JOptionPane.showMessageDialog(null, "Error exporting to CSV: " + e1.getMessage(), 
+		                                          "Export Error", JOptionPane.ERROR_MESSAGE);
+		        }
+		    }
+		});
+		ExportToCSV.setBounds(10, 449, 105, 21);
+		panelsearchbydate.add(ExportToCSV);
 		
 		JPanel panelsearchbydate_1 = new JPanel();
 		panelsearchbydate_1.setLayout(null);
