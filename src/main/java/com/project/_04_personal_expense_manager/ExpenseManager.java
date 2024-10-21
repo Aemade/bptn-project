@@ -1,6 +1,4 @@
-package com.project;
-
-public class ExpenseManager1 extends JFrame {
+package com.project._04_personal_expense_manager;
 
 import java.awt.EventQueue;
 
@@ -11,33 +9,22 @@ import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-import java.awt.Color;
-import javax.swing.SwingConstants;
 import com.toedter.calendar.JDateChooser;
 
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.UIManager;
-import javax.swing.JScrollPane;
-import javax.swing.JInternalFrame;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-
+public class ExpenseManager extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -63,11 +50,11 @@ import java.sql.Statement;
 	/**
 	 * Create the frame.
 	 */
-	public ExpenseManager1() {
-		setFont(new Font("Calibri", Font.ITALIC, 20));
+	public ExpenseManager() {
+		setFont(new Font("Times New Roman", Font.BOLD, 18));
 		setTitle("Expense Manager");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1165, 621);
+		setBounds(100, 100, 1078, 612);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -75,93 +62,74 @@ import java.sql.Statement;
 		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 1146, 141);
-		panel.setBackground(new Color(198, 198, 198));
+		panel.setBounds(10, 0, 1048, 144);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Record Your Expence Here");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Calibri Light", Font.BOLD, 20));
-		lblNewLabel.setBounds(389, 10, 294, 25);
+		JLabel lblNewLabel = new JLabel("Please Record Your Expense Here");
+		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 16));
+		lblNewLabel.setBounds(409, 0, 244, 31);
 		panel.add(lblNewLabel);
 		
-		JLabel lblDate = new JLabel("Date:");
-		lblDate.setFont(new Font("Calibri", Font.PLAIN, 18));
-		lblDate.setBounds(22, 52, 51, 25);
-		panel.add(lblDate);
+		JLabel lblNewLabel_1 = new JLabel("Date:");
+		lblNewLabel_1.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+		lblNewLabel_1.setBounds(54, 52, 45, 25);
+		panel.add(lblNewLabel_1);
 		
 		JDateChooser dateChooser = new JDateChooser();
-		dateChooser.setBounds(69, 52, 106, 25);
+		dateChooser.setBounds(93, 52, 119, 25);
 		panel.add(dateChooser);
 		
 		JLabel lblItem = new JLabel("Item:");
-		lblItem.setFont(new Font("Calibri", Font.PLAIN, 18));
-		lblItem.setBounds(225, 54, 51, 20);
+		lblItem.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+		lblItem.setBounds(262, 52, 45, 25);
 		panel.add(lblItem);
 		
 		Item = new JTextField();
-		Item.setBounds(274, 52, 223, 25);
+		Item.setBounds(303, 50, 189, 31);
 		panel.add(Item);
 		Item.setColumns(10);
 		
 		JLabel lblCategory = new JLabel("Category:");
-		lblCategory.setFont(new Font("Calibri", Font.PLAIN, 16));
-		lblCategory.setBounds(566, 52, 63, 25);
+		lblCategory.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+		lblCategory.setBounds(538, 52, 63, 25);
 		panel.add(lblCategory);
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"-", "Clothing", "Education", "Food", "Housing", "Healthcare", "Personal", "Transportation", "Utilities"}));
-		comboBox.setBounds(639, 53, 143, 24);
+		comboBox.setBounds(599, 50, 139, 31);
 		panel.add(comboBox);
 		
-		JLabel lblAmount = new JLabel("Amount:");
-		lblAmount.setFont(new Font("Calibri", Font.PLAIN, 16));
-		lblAmount.setBounds(834, 52, 63, 25);
-		panel.add(lblAmount);
+		JLabel lblNewLabel_1_1_1_1 = new JLabel("Amount:");
+		lblNewLabel_1_1_1_1.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+		lblNewLabel_1_1_1_1.setBounds(797, 52, 72, 25);
+		panel.add(lblNewLabel_1_1_1_1);
 		
 		Amount = new JTextField();
-		Amount.setBounds(912, 52, 128, 25);
-		panel.add(Amount);
 		Amount.setColumns(10);
+		Amount.setBounds(859, 50, 96, 31);
+		panel.add(Amount);
 		
 		JButton btnNewButton = new JButton("Save");
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
-					// Get the selected date from JDateChooser
+				// Get the selected date from JDateChooser
 				Date selectedDate = dateChooser.getDate();
 		        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 			    
 			    // Check if the date is selected
-			    if (selectedDate != null) {
-			        String formattedDate = dateFormat.format(selectedDate);
+		        if (selectedDate != null) {
+                    String formattedDate = dateFormat.format(selectedDate);
+                    String item = Item.getText();
+                    String category = (String) comboBox.getSelectedItem();
+                    String amountText = Amount.getText();
 
-			        // Now create the content string with the formatted date
-			        String content = formattedDate + "," + Item.getText() + "," + comboBox.getSelectedItem() + "," + Amount.getText();
-			        
-				/*try {
-					FileWriter writer = new FileWriter ("C:\\Users\\Aemade\\Desktop\\Java Project\\expense.txt", true);
-					
-					BufferedWriter bufferedWriter = new BufferedWriter(writer);
-					bufferedWriter.write(content);
-					bufferedWriter.newLine();
-					bufferedWriter.close();
-					
-					JOptionPane.showMessageDialog(null, "Expense Saved Successfully!");
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			    } else {
-			        JOptionPane.showMessageDialog(null, "Please select a date!");
-			    }	
-					}
-				});
-				*/
-			        
-			        
+                    // Validate if the amount is a valid double
+                    try {
+                        double amount = Double.parseDouble(amountText); // Check for valid double
+			                			        
 			        try {
 			        	// Database connection and insertion
 		                String url = "jdbc:mysql://localhost:3306/expensedb";
@@ -182,22 +150,29 @@ import java.sql.Statement;
 		                // Close the connection
 		                connection.close();
 
-				        } catch (ClassNotFoundException e1) {
-				            e1.printStackTrace();
-				        } catch (SQLException throwables) {
-				            throwables.printStackTrace();
-				        }
-				    }
-			}
-				});
+			        } catch (ClassNotFoundException | SQLException ex) {
+                        ex.printStackTrace();
+                        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+                    }
 
-						
-		btnNewButton.setFont(new Font("Calibri", Font.PLAIN, 16));
-		btnNewButton.setBounds(274, 104, 85, 29);
+                } catch (NumberFormatException ex) {
+                    // Show error message for invalid amount input
+                    JOptionPane.showMessageDialog(null, 
+                        "Invalid input for amount! Please enter a numeric value.", 
+                        "Input Error", JOptionPane.ERROR_MESSAGE);
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Please select a date!");
+            }
+        }
+    });
+		btnNewButton.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		btnNewButton.setBounds(192, 103, 105, 31);
 		panel.add(btnNewButton);
 		
-		JButton btnNewButton_1 = new JButton("Cancel");
-		btnNewButton_1.addMouseListener(new MouseAdapter() {
+		JButton btnReset = new JButton("Reset");
+		btnReset.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
@@ -207,21 +182,20 @@ import java.sql.Statement;
 				Amount.setText("");
 			}
 		});
-		btnNewButton_1.setFont(new Font("Calibri", Font.PLAIN, 16));
-		btnNewButton_1.setBounds(463, 105, 97, 27);
-		panel.add(btnNewButton_1);
+		btnReset.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		btnReset.setBounds(409, 103, 110, 31);
+		panel.add(btnReset);
 		
-		JButton btnviewexpense = new JButton("View Expense");
-		btnviewexpense.setBounds(674, 101, 146, 34);
-		panel.add(btnviewexpense);
-		btnviewexpense.addMouseListener(new MouseAdapter() {
+		JButton btnViewExpense = new JButton("View Expense");
+		btnViewExpense.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ViewExp Exp = new ViewExp();
-				contentPane.add(Exp);
+				ViewExpense Exp = new ViewExpense();
 				Exp.setVisible(true);
 			}
 		});
-		btnviewexpense.setFont(new Font("Calibri", Font.ITALIC, 16));
+		btnViewExpense.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		btnViewExpense.setBounds(630, 103, 165, 31);
+		panel.add(btnViewExpense);
 	}
 }
