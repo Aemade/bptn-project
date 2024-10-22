@@ -14,6 +14,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.ImageIcon;
 
 public class Login {
 
@@ -60,11 +61,6 @@ public class Login {
 		frmWellcomeToPersonal.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmWellcomeToPersonal.getContentPane().setLayout(null);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(0, 153, 204));
-		panel_1.setBounds(10, 10, 417, 432);
-		frmWellcomeToPersonal.getContentPane().add(panel_1);
-		
 		JLabel lblNewLabel = new JLabel("WELCOME - PLEASE LOG IN");
 		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 16));
 		lblNewLabel.setBounds(511, 36, 225, 20);
@@ -108,7 +104,7 @@ public class Login {
                     ExpenseManager.main(null); // This should display the home screen
                     
                 } else {
-                    JOptionPane.showMessageDialog(null, "Invalid Username/Password", "Login Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Incorrect Username/Password", "Login Error", JOptionPane.ERROR_MESSAGE);
                     txtPassword.setText(null);
                     txtUsername.setText(null);
                 }
@@ -130,5 +126,10 @@ public class Login {
 		btnreset.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		btnreset.setBounds(624, 356, 112, 41);
 		frmWellcomeToPersonal.getContentPane().add(btnreset);
+		
+		JLabel lblNewLabel_1 = new JLabel("New label");
+		lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\Aemade\\Desktop\\Java_Programs\\final-project\\expensemanager-java\\images\\image 3.png"));
+		lblNewLabel_1.setBounds(10, 10, 399, 452);
+		frmWellcomeToPersonal.getContentPane().add(lblNewLabel_1);
 	}
 }

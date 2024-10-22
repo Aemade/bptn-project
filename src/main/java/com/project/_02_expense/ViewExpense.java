@@ -132,11 +132,11 @@ public class ViewExpense extends JFrame {
 		
 		JLabel lbltotalamount1 = new JLabel("Total Amount:");
 		lbltotalamount1.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-		lbltotalamount1.setBounds(267, 447, 94, 30);
+		lbltotalamount1.setBounds(313, 109, 94, 30);
 		panelsearchbydate.add(lbltotalamount1);
 		
 		totalamount1 = new JTextField();
-		totalamount1.setBounds(352, 447, 105, 26);
+		totalamount1.setBounds(400, 113, 78, 26);
 		panelsearchbydate.add(totalamount1);
 		totalamount1.setColumns(10);
 		
@@ -162,7 +162,7 @@ public class ViewExpense extends JFrame {
 		scrollPane_1.setBounds(10, 149, 468, 285);
 		panelsearchbydate.add(scrollPane_1);
 		
-		JButton ExportToCSV = new JButton("ExportToCSV");
+		JButton ExportToCSV = new JButton("Export To CSV");
 		ExportToCSV.addMouseListener(new MouseAdapter() {
 		    @Override
 		    public void mouseClicked(MouseEvent e) {
@@ -193,8 +193,61 @@ public class ViewExpense extends JFrame {
 		        }
 		    }
 		});
-		ExportToCSV.setBounds(10, 449, 105, 21);
+		ExportToCSV.setBounds(10, 449, 120, 21);
 		panelsearchbydate.add(ExportToCSV);
+		
+		JButton btnNewButton_2 = new JButton("Delete Record");
+		btnNewButton_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			       // Check if a row is selected
+		        int selectedRow = table1.getSelectedRow(); // For table1 (Date-based search)
+		        if (selectedRow != -1) {
+		            // Get the date, item, and amount from the selected row
+		            java.sql.Date date = (java.sql.Date) table1.getValueAt(selectedRow, 0);
+		            String item = table1.getValueAt(selectedRow, 1).toString();
+		            double amount = (double) table1.getValueAt(selectedRow, 2);
+
+		            // Confirmation dialog
+		            int confirm = JOptionPane.showConfirmDialog(null, 
+		                    "Are you sure you want to delete the selected record?", 
+		                    "Delete Confirmation", 
+		                    JOptionPane.YES_NO_OPTION);
+
+		            if (confirm == JOptionPane.YES_OPTION) {
+		                // Connect to the database and delete the record
+		                try {
+		                    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/expensedb", "root", "Benu");
+		                    Statement st = conn.createStatement();
+		                    
+		                    // Prepare the DELETE query
+		                    String query = "DELETE FROM expense WHERE Date = '" + date + "' AND Item = '" + item + "' AND Amount = " + amount;
+		                    int rowsDeleted = st.executeUpdate(query);
+		                    
+		                    if (rowsDeleted > 0) {
+		                        // Remove the row from the table model
+		                        ((DefaultTableModel) table1.getModel()).removeRow(selectedRow);
+		                        JOptionPane.showMessageDialog(null, "Record deleted successfully!");
+		                    } else {
+		                        JOptionPane.showMessageDialog(null, "No record found for deletion!");
+		                    }
+		                    
+		                    st.close();
+		                    conn.close();
+		                } catch (Exception ex) {
+		                    JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), 
+		                            "Delete Error", JOptionPane.ERROR_MESSAGE);
+		                }
+		            }
+		        } else {
+		            JOptionPane.showMessageDialog(null, "Please select a record to delete.", 
+		                    "No Selection", JOptionPane.WARNING_MESSAGE);
+		        }
+		    }
+		});
+		
+		btnNewButton_2.setBounds(371, 449, 107, 21);
+		panelsearchbydate.add(btnNewButton_2);
 		
 		JPanel panelsearchbydate_1 = new JPanel();
 		panelsearchbydate_1.setLayout(null);

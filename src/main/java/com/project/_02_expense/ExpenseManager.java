@@ -26,6 +26,9 @@ import java.util.Date;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
 
 public class ExpenseManager extends JFrame {
 
@@ -65,7 +68,7 @@ public class ExpenseManager extends JFrame {
 		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBorder(new CompoundBorder(new CompoundBorder(), new LineBorder(new Color(0, 0, 0), 2)));
+		panel.setBorder(new CompoundBorder(new CompoundBorder(), new LineBorder(new Color(0, 0, 0))));
 		panel.setBounds(10, 10, 391, 513);
 		contentPane.add(panel);
 		panel.setLayout(null);
@@ -186,6 +189,10 @@ public class ExpenseManager extends JFrame {
 		panel.add(btnReset);
 		
 		JButton btnViewExpense = new JButton("View Expense");
+		btnViewExpense.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnViewExpense.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -201,5 +208,10 @@ public class ExpenseManager extends JFrame {
 		lblNewLabel.setBounds(75, 10, 244, 31);
 		panel.add(lblNewLabel);
 		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 16));
+		
+		JLabel lblNewLabel_2 = new JLabel("New label");
+		lblNewLabel_2.setIcon(new ImageIcon("C:\\Users\\Aemade\\Desktop\\Java_Programs\\final-project\\expensemanager-java\\images\\images 4.jpg"));
+		lblNewLabel_2.setBounds(313, 10, 546, 513);
+		contentPane.add(lblNewLabel_2);
 	}
 }
