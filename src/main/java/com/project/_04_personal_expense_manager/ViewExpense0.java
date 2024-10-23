@@ -26,7 +26,7 @@ import java.sql.Statement;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 
-public class ViewExpense extends JFrame {
+public class ViewExpense0 extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
@@ -43,7 +43,7 @@ public class ViewExpense extends JFrame {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    ViewExpense frame = new ViewExpense();
+                    ViewExpense0 frame = new ViewExpense0();
                     frame.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -55,7 +55,7 @@ public class ViewExpense extends JFrame {
     /**
      * Create the frame.
      */
-    public ViewExpense() {
+    public ViewExpense0() {
         setBounds(100, 100, 1037, 544);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

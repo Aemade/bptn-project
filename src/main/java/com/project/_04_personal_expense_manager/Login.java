@@ -100,8 +100,8 @@ public class Login {
                     txtPassword.setText(null);
                     txtUsername.setText(null);
                     
-                    ExpenseManager info = new ExpenseManager();
-                    ExpenseManager.main(null); // This should display the home screen
+                    ExpenseManager0 info = new ExpenseManager0();
+                    ExpenseManager0.main(null); // This should display the home screen
                     
                 } else {
                     JOptionPane.showMessageDialog(null, "Incorrect Username/Password", "Login Error", JOptionPane.ERROR_MESSAGE);
@@ -129,7 +129,7 @@ public class Login {
 		
 		JLabel lblNewLabel_1 = new JLabel("New label");
 		lblNewLabel_1.setIcon(new ImageIcon("C:\\Users\\Aemade\\Desktop\\Java_Programs\\final-project\\expensemanager-java\\images\\image 3.png"));
-		lblNewLabel_1.setBounds(10, 10, 399, 452);
+		lblNewLabel_1.setBounds(10, 10, 399, 497);
 		frmWellcomeToPersonal.getContentPane().add(lblNewLabel_1);
 	}
 }
